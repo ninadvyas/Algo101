@@ -1,0 +1,15 @@
+{
+  "index": "Introduction",
+  "another": "Searching Algo's",
+  "advanced": "Sorting Algo's",
+  "about": {
+    "title": "About",
+    "type": "page"
+  },
+  "contact": {
+    "title": "Contact ↗",
+    "type": "page",
+    "href": "https://twitter.com/ninadvsd",
+    "newWindow": true
+  }
+}
