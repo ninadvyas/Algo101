@@ -1,2 +1,45 @@
 # Binary Search
+**Binary search is the search technique that works efficiently on sorted lists. Hence, to search an element into some list using the binary search technique, we must ensure that the list is sorted.**
 
+
+## Need To Know:
+
+Binary search follows the divide and conquer approach in which the list is divided into two halves, and the item is compared with the middle element of the list. If the match is found then, the location of the middle element is returned. Otherwise, we search into either of the halves depending upon the result produced through the match.
+
+## Example 
+```js filename="Searching-Algo/bs.js"
+function binarySearch(arr, target) {
+    let left = 0;
+    let right = arr.length - 1;
+
+    while (left <= right) {
+        const mid = Math.floor((left + right) / 2);
+
+        if (arr[mid] === target) {
+            return mid; // Target found, return its index
+        } else if (arr[mid] < target) {
+            left = mid + 1; // Target is in the right half
+        } else {
+            right = mid - 1; // Target is in the left half
+        }
+    }
+
+    return -1; // Target not found in the array
+}
+
+// Example usage:
+const sortedArray = [2, 4, 7, 9, 12, 15, 18, 22];
+const target = 9;
+const result = binarySearch(sortedArray, target);
+
+if (result !== -1) {
+    console.log(`Target ${target} found at index ${result}`);
+} else {
+    console.log(`Target ${target} not found in the array`);
+}
+
+```
+## Output
+```
+Target 9 found at index 3
+```
