@@ -1,0 +1,84 @@
+# Selection Sort
+
+**Selection sort is a simple and efficient sorting algorithm that works by repeatedly selecting the smallest (or largest) element from the unsorted portion of the list and moving it to the sorted portion of the list.  **
+
+## Algorithm
+The algorithm repeatedly selects the smallest (or largest) element from the unsorted portion of the list and swaps it with the first element of the unsorted part. This process is repeated for the remaining unsorted portion until the entire list is sorted. 
+
+## Code
+```js filename="Searching-Algo/bs.js"
+function selectionSort(arr) {
+  const length = arr.length;
+
+  for (let i = 0; i < length - 1; i++) {
+    let minIndex = i;
+
+    // Find the index of the minimum element in the unsorted part of the array
+    for (let j = i + 1; j < length; j++) {
+      if (arr[j] < arr[minIndex]) {
+        minIndex = j;
+      }
+    }
+
+    // Swap the minimum element with the first element of the unsorted part
+    if (minIndex !== i) {
+      let temp = arr[i];
+      arr[i] = arr[minIndex];
+      arr[minIndex] = temp;
+    }
+  }
+
+  return arr;
+}
+
+// Example usage:
+const unsortedArray = [64, 25, 12, 22, 11];
+const sortedArray = selectionSort(unsortedArray);
+console.log(sortedArray); // Output: [11, 12, 22, 25, 64]
+
+```
+
+## Output
+```
+[11, 12, 22, 25, 64]
+```
+
+## Tracing 
+Here are step-by-step instructions for tracing selection sort:
+
+**Initial State**: Write down the unsorted array.
+Unsorted: **[64, 25, 12, 22, 11]**
+
+**Iteration 2:**
+Find the minimum element in the unsorted part of the array (starting from index 0).
+In this case, the minimum element is 11, located at index 4.
+Swap the minimum element (11) with the first element (64).
+Unsorted: **[11, 25, 12, 22, 64]**
+
+**Iteration 2:**
+Move to the next unsorted part of the array (excluding the first element, which is now sorted).
+Find the minimum element in this new unsorted part (starting from index 1).
+The minimum element is 12, located at index 2.
+Swap the minimum element (12) with the second element (25).
+Unsorted: **[11, 12, 25, 22, 64]**
+
+**Iteration 3:**
+Continue this process for the remaining unsorted elements.
+Find the minimum element in the unsorted part (starting from index 2).
+The minimum element is 22, located at index 3.
+Swap the minimum element (22) with the third element (25).
+Unsorted: **[11, 12, 22, 25, 64]**
+
+**Iteration 4:**
+Move to the next unsorted part of the array (excluding the first four elements, which are now sorted).
+Find the minimum element in this new unsorted part (starting from index 3).
+The minimum element is 25, located at index 3 (which remains the same).
+No swap is needed.
+Unsorted: **[11, 12, 22, 25, 64]**
+
+
+**Final State: All elements are now sorted.
+Sorted Array: [11, 12, 22, 25, 64]**
+
+
+These steps show how selection sort repeatedly finds the minimum element in the unsorted part of the array and moves it to its correct position in the sorted part until the entire array is sorted in ascending order.
