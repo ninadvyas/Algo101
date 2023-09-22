@@ -1,0 +1,91 @@
+# Merge Sort
+
+**Merge sort is defined as a sorting algorithm that works by dividing an array into smaller subarrays, sorting each subarray, and then merging the sorted subarrays back together to form the final sorted array. **
+ 
+
+## Code
+```js filename="Sorting-Algo/mg.js"
+function mergeSort(arr) {
+  if (arr.length <= 1) {
+    return arr;
+  }
+
+  // Split the array into two halves
+  const middle = Math.floor(arr.length / 2);
+  const leftHalf = arr.slice(0, middle);
+  const rightHalf = arr.slice(middle);
+
+  // Recursively sort each half
+  const sortedLeft = mergeSort(leftHalf);
+  const sortedRight = mergeSort(rightHalf);
+
+  // Merge the sorted halves
+  return merge(sortedLeft, sortedRight);
+}
+
+function merge(left, right) {
+  let result = [];
+  let leftIndex = 0;
+  let rightIndex = 0;
+
+  // Compare elements from the left and right arrays and merge them in sorted order
+  while (leftIndex < left.length && rightIndex < right.length) {
+    if (left[leftIndex] < right[rightIndex]) {
+      result.push(left[leftIndex]);
+      leftIndex++;
+    } else {
+      result.push(right[rightIndex]);
+      rightIndex++;
+    }
+  }
+
+  // Add any remaining elements from both arrays
+  return result.concat(left.slice(leftIndex), right.slice(rightIndex));
+}
+
+// Example usage:
+const unsortedArray = [38, 27, 43, 3, 9, 82, 10];
+const sortedArray = mergeSort(unsortedArray);
+console.log(sortedArray); // Output: [3, 9, 10, 27, 38, 43, 82]
+
+```
+
+## Output
+```
+[3, 9, 10, 27, 38, 43, 82]
+```
+
+## Tracing 
+Here are step-by-step instructions for tracing selection sort:
+
+**Initial State**: Write down the unsorted array.
+Unsorted: **[38, 27, 43, 3, 9, 82, 10]**
+
+**Step 1 (Splitting the Array):**
+Divide the array into two equal halves: [38, 27, 43] and [3, 9, 82, 10].
+
+**Step 2 (Recursively Sorting Subarrays):**
+Recursively apply merge sort to both halves:
+Left Half: [38, 27, 43]
+Right Half: [3, 9, 82, 10]
+
+**Step 3 (Merging Sorted Subarrays):**
+Merge the sorted left and right halves:
+Left Half (sorted): [27, 38, 43]
+Right Half (sorted): [3, 9, 10, 82]
+Compare elements from both halves and merge them into a single sorted array:
+[27, 38, 43] and [3, 9, 10, 82]
+Compare 27 (left) and 3 (right), choose 3, and move right index.
+Compare 27 (left) and 9 (right), choose 9, and move right index.
+Compare 27 (left) and 10 (right), choose 10, and move right index.
+Compare 27 (left) and 82 (right), choose 27, and move left index.
+Compare 38 (left) and 82 (right), choose 38, and move left index.
+Compare 43 (left) and 82 (right), choose 43, and move left index.
+Merge remaining elements: [82].
+The merged array is [3, 9, 10, 27, 38, 43, 82].
+
+**Final State: All elements are now sorted.
+Sorted Array: [3, 9, 10, 27, 38, 43, 82]**
+
+
+These steps demonstrate how merge sort recursively divides the array into smaller halves, sorts them, and then merges them back together in the correct order, resulting in a fully sorted array.
