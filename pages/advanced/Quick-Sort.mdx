@@ -1,0 +1,80 @@
+# Quick Sort
+
+**QuickSort is a sorting algorithm based on the Divide and Conquer algorithm that picks an element as a pivot and partitions the given array around the picked pivot by placing the pivot in its correct position in the sorted array. **
+ 
+
+## Code
+```js filename="Sorting-Algo/qs.js"
+function quickSort(arr) {
+  if (arr.length <= 1) {
+    return arr;
+  }
+
+  const pivot = arr[0]; // Choose the first element as the pivot
+  const left = [];
+  const right = [];
+
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] < pivot) {
+      left.push(arr[i]);
+    } else {
+      right.push(arr[i]);
+    }
+  }
+
+  return [...quickSort(left), pivot, ...quickSort(right)];
+}
+
+// Example usage:
+const unsortedArray = [38, 27, 43, 3, 9, 82, 10];
+const sortedArray = quickSort(unsortedArray);
+console.log(sortedArray); 
+
+```
+
+## Output
+```
+[3, 9, 10, 27, 38, 43, 82]
+```
+
+## Tracing 
+Here are step-by-step instructions for tracing selection sort:
+
+**Initial State: Write down the unsorted array.
+Unsorted: [38, 27, 43, 3, 9, 82, 10]**
+
+**Step 1 (Choosing a Pivot):**
+Choose a pivot element; in this case, we choose the first element, which is 38..
+
+**SStep 2 (Partitioning the Array):**
+Partition the array into two sub-arrays:
+Left sub-array (elements less than the pivot): **[27, 3, 9, 10]**
+Right sub-array (elements greater than or equal to the pivot): **[43, 82]**
+
+**Step 3 (Recursively Sorting Sub-arrays):**
+Recursively apply quick sort to both sub-arrays.
+**Left Sub-array:**
+Choose the pivot, which is 27.
+Partition the left sub-array into smaller sub-arrays:
+Left sub-array: **[3, 9, 10]**
+Right sub-array: [] (empty)
+Recursively sort the left sub-array (nothing to do with the right sub-array).
+
+**Right Sub-array:**
+Choose the pivot, which is 43.
+Partition the right sub-array into smaller sub-arrays:
+Left sub-array: [] (empty)
+Right sub-array: **[82]**
+Recursively sort the right sub-array (nothing to do with the left sub-array).
+
+**Step 4 (Combining the Sorted Sub-arrays):**
+Combine the sorted sub-arrays along with the pivot in their correct order:
+Left Sub-array: **[3, 9, 10]**
+Pivot: [27]
+Right Sub-array: **[43, 82]**
+
+**Step 5 (Final State):**
+The entire array is now sorted.
+Result: **[3, 9, 10, 27, 38, 43, 82]**
+
+These steps illustrate how quick sort recursively chooses a pivot, partitions the array, sorts the sub-arrays, and finally combines them to produce a fully sorted array. The choice of the pivot and its position in the partitioning process is crucial for the efficiency of the algorithm.
