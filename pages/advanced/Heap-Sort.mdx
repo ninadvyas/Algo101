@@ -1,0 +1,114 @@
+# Quick Sort
+
+**Heap sort is a comparison-based sorting technique based on Binary Heap data structure. It is similar to the selection sort where we first find the minimum element and place the minimum element at the beginning. Repeat the same process for the remaining elements.**
+ 
+
+## Code
+```js filename="Sorting-Algo/qs.js"
+// Helper function to perform the heapify operation on a subtree
+function heapify(arr, n, i) {
+  let largest = i; // Initialize largest as the root
+  const left = 2 * i + 1; // Left child index
+  const right = 2 * i + 2; // Right child index
+
+  // If the left child is larger than the root
+  if (left < n && arr[left] > arr[largest]) {
+    largest = left;
+  }
+
+  // If the right child is larger than the largest so far
+  if (right < n && arr[right] > arr[largest]) {
+    largest = right;
+  }
+
+  // If the largest element is not the root
+  if (largest !== i) {
+    // Swap the largest element with the root
+    const temp = arr[i];
+    arr[i] = arr[largest];
+    arr[largest] = temp;
+
+    // Recursively heapify the affected sub-tree
+    heapify(arr, n, largest);
+  }
+}
+
+// Main Heap Sort function
+function heapSort(arr) {
+  const n = arr.length;
+
+  // Build a max heap (rearrange array)
+  for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
+    heapify(arr, n, i);
+  }
+
+  // One by one extract elements from the heap
+  for (let i = n - 1; i > 0; i--) {
+    // Move the current root to the end
+    const temp = arr[0];
+    arr[0] = arr[i];
+    arr[i] = temp;
+
+    // Call max heapify on the reduced heap
+    heapify(arr, i, 0);
+  }
+}
+
+// Example usage:
+const unsortedArray = [12, 11, 13, 5, 6, 7];
+heapSort(unsortedArray);
+console.log(unsortedArray); 
+
+
+```
+
+## Output
+```
+[5, 6, 7, 11, 12, 13]
+
+```
+
+## Tracing 
+Here are step-by-step instructions for tracing Heap sort:
+
+**Initial State: Write down the unsorted array.
+Unsorted: [12, 11, 13, 5, 6, 7]**
+
+**Step 1 (Choosing a Pivot):**
+Choose a pivot element; in this case, we choose the first element, which is 38..
+
+**Build a Max Heap:
+Convert the original array into a max heap.
+Starting from the last non-leaf node (index n/2 - 1), perform the heapify operation on each node in reverse order:
+heapify([12, 11, 13, 5, 6, 7], 6, 2) results in [13, 11, 12, 5, 6, 7]
+heapify([13, 11, 12, 5, 6, 7], 6, 1) results in [13, 11, 12, 5, 6, 7]
+heapify([13, 11, 12, 5, 6, 7], 6, 0) results in [13, 11, 12, 5, 6, 7]
+The array is now a max heap.**
+
+**Extract the Maximum Element and Rebuild the Heap:
+Repeatedly extract the maximum element (root) and place it at the end of the array.
+Swap arr[0] (maximum) with arr[5], resulting in [7, 11, 12, 5, 6, 13].
+Reduce the heap size to n-1 and call heapify on the root to maintain the max heap property:
+heapify([7, 11, 12, 5, 6, 13], 5, 0) results in [12, 11, 7, 5, 6, 13].**
+
+**Rpeat Extraction and Rebuilding:
+Repeat the extraction and rebuilding steps until the entire array is sorted.
+Swap arr[0] (maximum) with arr[4], resulting in [6, 11, 7, 5, 12, 13].
+Heapify: heapify([6, 11, 7, 5, 12, 13], 4, 0) results in [11, 12, 7, 5, 6, 13].**
+
+**Repeat Again:
+Swap arr[0] (maximum) with arr[3], resulting in [5, 11, 7, 6, 12, 13].
+Heapify: heapify([5, 11, 7, 6, 12, 13], 3, 0) results in [11, 12, 7, 6, 5, 13].**
+
+**Repeat Again:
+Swap arr[0] (maximum) with arr[2], resulting in [7, 12, 11, 6, 5, 13].
+Heapify: heapify([7, 12, 11, 6, 5, 13], 2, 0) results in [12, 7, 11, 6, 5, 13].**
+
+**Repeat Again:
+Swap arr[0] (maximum) with arr[1], resulting in [7, 12, 11, 6, 5, 13].
+Heapify: heapify([7, 12, 11, 6, 5, 13], 1, 0) results in [12, 7, 11, 6, 5, 13].**
+
+**Final State: All elements are now sorted.
+Sorted Array: [5, 6, 7, 11, 12, 13]**
+
+These steps demonstrate how Heap Sort works by first building a max heap and then repeatedly extracting the maximum element and rebuilding the heap until the entire array is sorted in ascending order.
