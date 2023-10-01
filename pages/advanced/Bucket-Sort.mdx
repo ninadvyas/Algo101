@@ -4,6 +4,62 @@
  
 
  ## Code
- ```js filename="Sorting-Algo/bcs.js"
+ ```java filename="Sorting-Algo/bcs.js"
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class BucketSort {
+
+    // Bucket Sort function
+    public static void bucketSort(double[] arr) {
+        int n = arr.length;
+        if (n <= 1) {
+            return; // No need to sort an empty or single-element array
+        }
+
+        // Create empty buckets
+        List<Double>[] buckets = new ArrayList[n];
+
+        for (int i = 0; i < n; i++) {
+            buckets[i] = new ArrayList<>();
+        }
+
+        // Put elements into buckets
+        for (int i = 0; i < n; i++) {
+            int bucketIndex = (int) (n * arr[i]);
+            buckets[bucketIndex].add(arr[i]);
+        }
+
+        // Sort each bucket (using another sorting algorithm or recursion)
+        for (int i = 0; i < n; i++) {
+            Collections.sort(buckets[i]);
+        }
+
+        // Concatenate sorted buckets back into the original array
+        int index = 0;
+        for (int i = 0; i < n; i++) {
+            for (double num : buckets[i]) {
+                arr[index++] = num;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        double[] arr = {0.42, 0.32, 0.33, 0.52, 0.37, 0.47, 0.51};
+        
+        System.out.println("Original Array:");
+        for (double num : arr) {
+            System.out.print(num + " ");
+        }
+
+        bucketSort(arr);
+
+        System.out.println("\nSorted Array:");
+        for (double num : arr) {
+            System.out.print(num + " ");
+        }
+    }
+}
 
 ```
