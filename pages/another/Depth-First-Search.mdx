@@ -1,4 +1,107 @@
-# Depth First Search
-**Depth First Traversal (or DFS) for a graph is similar to Depth First Traversal of a tree. The only catch here is, that, unlike trees, graphs may contain cycles (a node may be visited twice). To avoid processing a node more than once, use a boolean visited array. A graph can have more than one DFS traversal.**
+# Depth-First Search (DFS)
 
+Depth-First Search is a fundamental graph traversal algorithm that explores a graph or tree by visiting as far as possible along each branch before backtracking. It is used to find paths, connected components, and various other applications in graph theory and computer science.
+
+## How DFS Works
+
+1. **Starting Point**:
+   - Begin at a starting node (usually the root in a tree or any arbitrary node in a graph).
+
+2. **Visit and Mark**:
+   - Visit the current node and mark it as visited to prevent revisiting.
+
+3. **Explore Neighbors**:
+   - Explore each unvisited neighbor of the current node.
+   - If multiple neighbors are available, choose one and proceed to step 2. This choice defines the traversal order (e.g., in-order, pre-order, or post-order in a tree).
+
+4. **Backtrack**:
+   - If no unvisited neighbors are left, backtrack to the previous node (if possible) and repeat step 3.
+   - Continue this process until all nodes are visited or the goal is achieved.
+
+
+## Code
+```js filename="Sorting-Algo/dfs.js"
+// Depth-First Search (DFS) Algorithm
+function depthFirstSearch(graph, startNode) {
+    // Create a stack for DFS
+    const stack = [startNode];
+    
+    // Track visited nodes
+    const visited = new Set();
+    
+    while (stack.length > 0) {
+        // Pop a vertex from the stack
+        const vertex = stack.pop();
+        
+        // If the vertex has not been visited, visit it
+        if (!visited.has(vertex)) {
+            console.log(`Visited node: ${vertex}`);
+            visited.add(vertex);
+        }
+        
+        // Get the adjacent vertices and push them to the stack
+        const neighbors = graph[vertex];
+        for (let neighbor of neighbors) {
+            if (!visited.has(neighbor)) {
+                stack.push(neighbor);
+            }
+        }
+    }
+}
+
+// Example Usage
+const graph = {
+    A: ['B', 'C'],
+    B: ['A', 'D', 'E'],
+    C: ['A', 'F'],
+    D: ['B'],
+    E: ['B', 'F'],
+    F: ['C', 'E']
+};
+
+console.log("Depth-First Search starting from node 'A':");
+depthFirstSearch(graph, 'A');
+
+
+```
+
+## Key Features
+
+- **Recursion or Stack**: DFS can be implemented using recursion (function calls) or an explicit stack data structure, making it versatile and adaptable to various scenarios.
+
+- **Memory Usage**: In the recursion-based approach, it has relatively low memory requirements as it doesn't store all possible paths simultaneously.
+
+## Variants
+
+- **Pre-order, In-order, and Post-order**: In the context of tree traversal, DFS has three common variants that determine when a node is visited.
+
+- **Topological Sort**: In directed acyclic graphs (DAGs), DFS is used to find a topological ordering of nodes, which represents a valid linear ordering of tasks or dependencies.
+
+- **Depth-Limited Search**: A variation of DFS that limits the exploration to a specified depth, useful in scenarios where the complete graph cannot be traversed.
+
+- **Iterative Deepening Depth-First Search (IDDFS)**: Combines depth-limited search with incrementally increasing depth limits to find solutions in graphs.
+
+## Efficiency
+
+- **Time Complexity**: In its basic form, DFS has a time complexity of O(V + E), where V is the number of vertices and E is the number of edges in the graph.
+
+- **Space Complexity**: The space complexity depends on the implementation. In the recursive version, it can be O(h), where h is the maximum depth of the recursion. In the stack-based version, it is O(V) for the stack.
+
+## Applications
+
+- **Graph Traversal**: DFS is a fundamental component of many graph algorithms, such as finding connected components, detecting cycles, and determining reachability.
+
+- **Pathfinding**: DFS is used to find paths or routes in various applications, including maze solving and network routing.
+
+- **Game Development**: In game AI, DFS can be used to explore game states, solve puzzles, or find optimal moves.
+
+- **Compiler Design**: DFS is used in syntax analysis and code generation phases of a compiler to traverse abstract syntax trees.
+
+## Limitations
+
+- **Completeness**: DFS may not find a solution in infinite graphs or graphs with infinite branches. It can also get stuck in cycles when not carefully controlled.
+
+- **Memory Usage**: In deep or branching graphs, the recursive version of DFS can lead to a large stack, potentially causing a stack overflow.
+
+Depth-First Search is a versatile and powerful algorithm with a wide range of applications in computer science and beyond. Its ability to explore and traverse graphs makes it a fundamental tool for solving various problems.
 
