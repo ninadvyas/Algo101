@@ -1,0 +1,100 @@
+# Breadth-First Search (BFS)
+
+Breadth-First Search is a fundamental graph traversal algorithm that explores a graph or tree by visiting all its neighbor nodes at the present depth before moving on to nodes at the next depth level. It is widely used for finding the shortest path in unweighted graphs and has various applications in computer science, including network routing and web crawling.
+
+## How BFS Works
+
+1. **Starting Point**:
+   - Begin at a starting node (usually the root in a tree or any arbitrary node in a graph).
+
+2. **Visit and Mark**:
+   - Visit the current node and mark it as visited to prevent revisiting.
+
+3. **Explore Neighbors**:
+   - Explore all unvisited neighbor nodes of the current node at the current depth level.
+   - Enqueue these neighbors for further exploration in a First-In-First-Out (FIFO) order.
+
+4. **Next Depth Level**:
+   - Move to the next depth level and repeat steps 2 and 3 for all unvisited nodes at that level.
+
+5. **Completion**:
+   - Continue this process until all nodes are visited or the goal is achieved.
+
+## Code
+```js filename="Sorting-Algo/bfs.js"
+// Breadth-First Search (BFS) Algorithm
+function breadthFirstSearch(graph, startNode) {
+    const queue = [startNode];
+    const visited = new Set();
+
+    while (queue.length > 0) {
+        const node = queue.shift();
+        if (!visited.has(node)) {
+            console.log(`Visited node: ${node}`);
+            visited.add(node);
+        }
+        
+        const neighbors = graph[node];
+        for (let neighbor of neighbors) {
+            if (!visited.has(neighbor)) {
+                queue.push(neighbor);
+            }
+        }
+    }
+}
+
+// Example Usage
+const graph = {
+    A: ['B', 'C'],
+    B: ['A', 'D', 'E'],
+    C: ['A', 'F'],
+    D: ['B'],
+    E: ['B', 'F'],
+    F: ['C', 'E']
+};
+
+console.log("Breadth-First Search starting from node 'A':");
+breadthFirstSearch(graph, 'A');
+
+
+```
+
+## Key Features
+
+- **Queue**: BFS uses a queue data structure for implementing the algorithm, ensuring that nodes are visited in the order they are discovered.
+
+- **Optimality**: When used in unweighted graphs, BFS guarantees that the shortest path is found, as it explores all nodes level by level.
+
+## Variants
+
+- **Uniform Cost Search (UCS)**: A variant of BFS used in weighted graphs, where the path cost is minimized rather than the number of edges.
+
+- **Bidirectional BFS**: In certain applications, BFS can be performed from both the start and goal nodes simultaneously to improve efficiency.
+
+## Efficiency
+
+- **Time Complexity**: The time complexity of BFS is O(V + E), where V is the number of vertices and E is the number of edges in the graph.
+
+- **Space Complexity**: The space complexity is O(V) for maintaining the queue and visited nodes.
+
+## Applications
+
+- **Shortest Path**: BFS is used to find the shortest path in unweighted graphs, such as those used in navigation and social networks.
+
+- **Connectivity**: It is employed to determine if a graph is connected or to find connected components.
+
+- **Maze Solving**: BFS can be used to find the shortest path through a maze or labyrinth.
+
+- **Network Routing**: In computer networks, BFS is used to discover and establish routing paths.
+
+- **Web Crawling**: Search engines use BFS for web crawling to index web pages efficiently.
+
+## Limitations
+
+- **Memory Usage**: BFS may require a significant amount of memory, especially in graphs with a large number of nodes, as it maintains a queue to store nodes at each level.
+
+- **Not Suitable for Weighted Graphs**: BFS is not designed for graphs with weighted edges, as it doesn't consider the edge weights.
+
+- **Exponential Branching**: In branching graphs, BFS may have an exponential time complexity.
+
+Breadth-First Search is a versatile algorithm with various applications in computer science, particularly for tasks that involve finding the shortest path and exploring networks. Its deterministic nature and guaranteed optimality make it a valuable tool for certain problems.
