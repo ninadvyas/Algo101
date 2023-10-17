@@ -1,0 +1,121 @@
+---
+title: Prim's Algorithm
+---
+
+# Prim's Algorithm
+
+Prim's Algorithm is a greedy algorithm used to find the minimum spanning tree (MST) of a connected, undirected graph. The MST is a subset of the graph's edges that connects all the vertices with the minimum possible total edge weight. Prim's Algorithm is particularly useful for network design, such as laying down minimum-length electrical wire to connect a set of houses.
+
+## How Prim's Algorithm Works
+
+1. **Initialization**:
+   - Start with an arbitrary node as the initial MST.
+   - Create a set to track vertices included in the MST (initially empty).
+
+2. **Selecting Edges**:
+   - While the MST set does not include all vertices:
+     - Find the minimum-weight edge that connects a vertex in the MST to a vertex outside of the MST.
+     - Add the vertex at the other end of the selected edge to the MST set.
+     - Add the selected edge to the MST.
+
+3. **Completion**:
+   - Continue this process until all vertices are included in the MST.
+
+## Key Features
+
+- **Greedy Approach**: Prim's Algorithm makes locally optimal choices to build a globally optimal solution.
+
+- **Minimum Spanning Tree**: It finds the MST, ensuring the least possible total edge weight to connect all vertices.
+
+## Efficiency
+
+- **Time Complexity**: The time complexity of Prim's Algorithm depends on the data structures used for the graph. With a priority queue, it typically runs in O(E + V log V) time, where E is the number of edges and V is the number of vertices.
+
+- **Space Complexity**: The space complexity depends on the data structures used. In the worst case, it can be O(E + V).
+
+## Applications
+
+- **Network Design**: Prim's Algorithm is widely used in network design, including laying down minimum-length electrical wires or connecting a set of houses with minimal cost.
+
+- **Image Segmentation**: It can be applied in image processing for image segmentation, where it partitions an image into regions.
+
+- **Cluster Analysis**: Prim's Algorithm is used for clustering data points in various applications, such as data mining and spatial analysis.
+
+## Limitations
+
+- **Must Be Connected**: Prim's Algorithm requires the graph to be connected. If the graph has disconnected components, it needs to be run separately on each component.
+
+- **Doesn't Work for Directed Graphs**: It is designed for undirected graphs. For directed graphs, other algorithms like Kruskal's Algorithm may be used.
+
+- **Sensitivity to Edge Weights**: The algorithm's performance can vary based on the choice of edge weights. Different edge weight assignments can result in different minimum spanning trees.
+
+## Prim's Algorithm Implementation in JavaScript
+
+Here's an example of Prim's Algorithm implemented in JavaScript:
+
+```javascript
+class Graph {
+    constructor() {
+        this.vertices = [];
+        this.edges = [];
+    }
+
+    addVertex(vertex) {
+        this.vertices.push(vertex);
+    }
+
+    addEdge(vertex1, vertex2, weight) {
+        this.edges.push({ vertex1, vertex2, weight });
+    }
+
+    primMST() {
+        const mst = [];
+        const mstSet = new Set();
+        mstSet.add(this.vertices[0]);
+
+        while (mstSet.size < this.vertices.length) {
+            let minWeight = Number.MAX_VALUE;
+            let edgeToInclude = null;
+
+            for (const vertex of mstSet) {
+                for (const edge of this.edges) {
+                    if (edge.vertex1 === vertex && !mstSet.has(edge.vertex2) && edge.weight < minWeight) {
+                        minWeight = edge.weight;
+                        edgeToInclude = edge;
+                    }
+                }
+            }
+
+            if (edgeToInclude) {
+                mstSet.add(edgeToInclude.vertex2);
+                mst.push(edgeToInclude);
+            }
+        }
+
+        return mst;
+    }
+}
+
+// Example usage
+const graph = new Graph();
+const vertices = ["A", "B", "C", "D", "E"];
+vertices.forEach((vertex) => graph.addVertex(vertex));
+
+graph.addEdge("A", "B", 2);
+graph.addEdge("A", "C", 3);
+graph.addEdge("B", "C", 1);
+graph.addEdge("B", "D", 1);
+graph.addEdge("C", "D", 1);
+graph.addEdge("C", "E", 4);
+graph.addEdge("D", "E", 2);
+
+const mst = graph.primMST();
+console.log("Minimum Spanning Tree (MST):", mst);
+```
+
+In this JavaScript code:
+
+- The \`Graph\` class represents a graph with vertices and weighted edges.
+- The \`primMST\` method finds the Minimum Spanning Tree using Prim's Algorithm.
+- The example usage demonstrates how to create a graph, add vertices and edges, and find the MST.
+

@@ -1,7 +1,8 @@
 {
   "index": "Introduction",
-  "another": "Searching Algo's",
-  "advanced": "Sorting Algo's",
+  "another": "Searching Algorithm",
+  "advanced": "Sorting Algorithm",
+  "graphs":"Graphs Algorithm",
   "about": {
     "title": "About",
     "type": "page"
