@@ -1,0 +1,82 @@
+
+# Floyd-Warshall Algorithm
+
+The Floyd-Warshall algorithm is a dynamic programming technique used for finding the shortest paths in a weighted graph with positive or negative edge weights (but with no negative cycles). It calculates the shortest path between all pairs of vertices in a graph, making it a versatile solution for solving problems related to network routing, transportation, and more.
+
+## How Floyd-Warshall Algorithm Works
+
+1. **Initialization**:
+   - Create a two-dimensional array (matrix) to store the shortest distances between vertices.
+   - Initialize the matrix with the direct edge weights where there is an edge, and set it to infinity where there is no direct edge.
+   - Initialize the diagonal elements of the matrix to zero (the distance from a vertex to itself).
+
+2. **Iterative Updates**:
+   - For each vertex as a potential intermediate vertex in the path:
+     - Update the matrix to consider the intermediate vertex and possibly shorten the path from one vertex to another.
+     - The idea is to check if going through the intermediate vertex (k) shortens the path from vertex i to vertex j.
+
+3. **Completion**:
+   - After iterating through all vertices as potential intermediates, the matrix contains the shortest path between all pairs of vertices.
+
+## Key Features
+
+- **All-Pairs Shortest Path**: The Floyd-Warshall algorithm computes the shortest path between all pairs of vertices in a graph.
+
+- **Versatile**: It works for graphs with both positive and negative edge weights, provided there are no negative cycles.
+
+## Efficiency
+
+- **Time Complexity**: The time complexity of the Floyd-Warshall algorithm is O(V³), where V is the number of vertices.
+
+- **Space Complexity**: The space complexity is O(V²) for storing the distance matrix.
+
+## Applications
+
+- **Network Routing**: The algorithm is used in network routing protocols to find the shortest paths for data transmission.
+
+- **Transportation Planning**: It helps in transportation planning to find the most efficient routes between locations.
+
+- **Games and Simulations**: In gaming and simulations, it can be used for pathfinding and navigation.
+
+## Limitations
+
+- **Complexity**: The algorithm's time complexity is cubic, which makes it less suitable for very large graphs.
+
+- **Negative Cycles**: The algorithm doesn't work correctly when the graph contains negative cycles.
+
+- **Space Requirements**: The space required for the distance matrix can be significant for large graphs.
+
+## Floyd-Warshall Algorithm Implementation in JavaScript
+
+Here's an example of the Floyd-Warshall Algorithm implemented in JavaScript with a detailed explanation:
+
+```javascript
+function floydWarshall(graph) {
+    const V = graph.length;
+    const dist = [...graph];
+
+    for (let k = 0; k < V; k++) {
+        for (let i = 0; i < V; i++) {
+            for (let j = 0; j < V; j++) {
+                if (dist[i][k] !== Infinity && dist[k][j] !== Infinity) {
+                    dist[i][j] = Math.min(dist[i][j], dist[i][k] + dist[k][j]);
+                }
+            }
+        }
+    }
+
+    return dist;
+}
+
+// Example usage
+const graph = [
+    [0, 5, Infinity, 10],
+    [Infinity, 0, 3, Infinity],
+    [Infinity, Infinity, 0, 1],
+    [Infinity, Infinity, Infinity, 0]
+];
+
+const shortestDistances = floydWarshall(graph);
+console.log("Shortest Distances between All Pairs of Vertices:");
+console.table(shortestDistances);
+```
