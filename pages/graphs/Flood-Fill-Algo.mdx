@@ -1,0 +1,89 @@
+
+
+# Flood Fill Algorithm
+
+The Flood Fill algorithm is a simple image processing technique used to fill connected regions in a two-dimensional array with a selected color. It is often employed for various purposes, including filling areas with a specific color in an image, simulating the "bucket fill" tool in graphics software, and solving puzzles like the "flood-it" game.
+
+## How Flood Fill Works
+
+1. **Initialization**:
+   - Choose a starting pixel and a target color (the color to fill).
+
+2. **Fill Process**:
+   - Check the color of the current pixel:
+     - If it matches the target color, mark it as filled.
+     - If it doesn't match, stop the process.
+
+3. **Recursive Fill**:
+   - Recursively apply the flood fill algorithm to the adjacent pixels:
+     - Top, bottom, left, and right (or diagonally if needed).
+     - Continue until all connected pixels are filled.
+
+4. **Completion**:
+   - The entire region will be filled with the target color.
+
+## Key Features
+
+- **Simple and Efficient**: Flood Fill is a straightforward and efficient algorithm for filling connected areas with a specified color.
+
+- **Recursive Approach**: It is often implemented recursively, but iterative approaches are also possible.
+
+## Efficiency
+
+- **Time Complexity**: Flood Fill is generally efficient with a time complexity of O(N), where N is the number of pixels to fill.
+
+- **Space Complexity**: The space complexity is O(N) due to the use of recursion or a stack.
+
+## Applications
+
+- **Image Editing**: Flood Fill is commonly used in image editing software for filling areas with a specific color.
+
+- **Graphics Algorithms**: It is applied in computer graphics for operations like area filling, anti-aliasing, and texture mapping.
+
+- **Puzzle Games**: Flood Fill is used in puzzle games and interactive applications.
+
+## Limitations
+
+- **Connectivity**: The algorithm assumes 4-connectivity (adjacent pixels to the top, bottom, left, and right) or 8-connectivity (including diagonals). Variants may be needed for other connectivities.
+
+- **Stack Overflow**: When implemented recursively, a deep recursion can lead to a stack overflow. This can be mitigated by using an iterative approach.
+
+## Flood Fill Algorithm Implementation in JavaScript
+
+Here's an example of the Flood Fill algorithm implemented in JavaScript:
+
+```javascript
+function floodFill(image, sr, sc, newColor) {
+    const targetColor = image[sr][sc];
+
+    if (targetColor === newColor) return image;
+
+    const fill = (r, c) => {
+        if (r < 0 || r >= image.length || c < 0 || c >= image[0].length || image[r][c] !== targetColor) {
+            return;
+        }
+
+        image[r][c] = newColor;
+        fill(r - 1, c);
+        fill(r + 1, c);
+        fill(r, c - 1);
+        fill(r, c + 1);
+    };
+
+    fill(sr, sc);
+    return image;
+}
+
+// Example usage
+const image = [
+    [1, 1, 1],
+    [1, 1, 0],
+    [1, 0, 1],
+];
+const startRow = 1;
+const startCol = 1;
+const newColor = 2;
+const filledImage = floodFill(image, startRow, startCol, newColor);
+console.log("Filled Image:", filledImage);
+
+```
