@@ -45,7 +45,7 @@ The Bellman-Ford Algorithm is used to find the shortest path from a source verte
 
 Here's an example of Bellman-Ford Algorithm implemented in JavaScript:
 
-```javascript
+```javascript filename="Graphs/blmf.js"
 class Graph {
     constructor(vertices, edges) {
         this.vertices = vertices;
@@ -94,3 +94,4 @@ const graph = new Graph(vertices, edges);
 const sourceVertex = "A";
 const shortestDistances = graph.bellmanFord(sourceVertex);
 console.log("Shortest Distances from", sourceVertex + ":", shortestDistances);
+```
