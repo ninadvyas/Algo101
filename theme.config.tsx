@@ -1,5 +1,5 @@
 export default {
-  
+  footer: false,
   project: {
     link: 'https://github.com/ninadvyas',
   },
