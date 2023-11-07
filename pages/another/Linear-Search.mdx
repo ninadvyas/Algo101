@@ -1,45 +1,58 @@
+---
+title: Linear Search
+---
+
 # Linear Search
-**Linear Search is defined as a sequential search algorithm that starts at one end and goes through each element of a list until the desired element is found, otherwise the search continues till the end of the data set.**
 
+Linear Search is a simple searching algorithm that sequentially checks each element in a collection until the desired element is found or the entire collection has been searched.
 
-## Need To Know:
+## How Linear Search Works
 
-In Linear Search Algorithm, 
+1. **Starting at First Element**:
+   - Begin searching from the first element of the collection.
 
-- Every element is considered as a potential match for the key and checked for the same.
-- If any element is found equal to the key, the search is successful and the index of that element is returned.
-- If no element is found equal to the key, the search yields “No match found”.
+2. **Sequential Checking**:
+   - Check each element one by one until a match is found.
 
-## Example 
-```java filename="Searching-Algo/ls.js"
-public class LinearSearch {
+3. **Completion**:
+   - Stop searching if the element is found or if the end of the collection is reached.
 
-    public static int linearSearch(int[] arr, int target) {
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == target) {
-                return i; // Return the index of the target element if found
-            }
+## Key Features
+
+- **Simple and Intuitive**: Linear Search is easy to implement and understand.
+
+## Efficiency
+
+- **Time Complexity**: O(n) where n is the number of elements in the collection.
+- **Space Complexity**: O(1) as it doesn't require additional memory.
+
+## Advantages
+
+- Easy to implement and understand.
+- Works well for small collections.
+
+## Disadvantages
+
+- Inefficient for large collections.
+- Takes linear time for search in worst-case scenarios.
+
+## Linear Search Implementation in JavaScript
+
+Here's an example of Linear Search implemented in JavaScript:
+
+```javascript filename="Sorting-Algo/lis.js"
+function linearSearch(arr, target) {
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] === target) {
+            return i; // Found at index i
         }
-        return -1; // Return -1 if the target element is not found
     }
-
-    public static void main(String[] args) {
-        int[] arr = {3, 6, 8, 2, 9, 1, 5};
-        int target = 9;
-
-        int result = linearSearch(arr, target);
-
-        if (result != -1) {
-            System.out.println("Element " + target + " found at index " + result);
-        } else {
-            System.out.println("Element " + target + " not found in the array");
-        }
-    }
+    return -1; // Not found
 }
 
-
+// Example usage
+const array = [10, 20, 30, 40, 50];
+const target = 30;
+const index = linearSearch(array, target);
+console.log("Index of", target, ":", index);
 ```
-### In this Java example:
-
-- The linearSearch method takes an integer array arr and an integer target as parameters. It iterates through the elements of the array one by one, comparing each element with the target value. If it finds a match, it returns the index of the target element; otherwise, it returns -1 to indicate that the target element is not in the array.
-- In the main method, we create an array arr and search for the element 9 in it. If the target element is found, it prints the index where 9 is found (index 4 in this case). If the target element is not in the array, it prints a message indicating that it was not found.

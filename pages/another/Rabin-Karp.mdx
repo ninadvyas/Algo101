@@ -1,115 +1,93 @@
-# Rabin-Karp Search
+---
+title: Rabin-Karp 
+---
 
-**The Rabin-Karp algorithm is a string searching algorithm that efficiently finds all occurrences of a given pattern within a text or document. It is especially useful when you need to search for a substring within a larger text efficiently. The algorithm is based on hashing, which allows it to compare substrings of the text and the pattern quickly.**
+# Rabin-Karp
+
+The Rabin-Karp Algorithm is a string-searching algorithm that efficiently searches for a pattern within a given text using hashing techniques. It works by comparing hash values of the pattern with the hash values of the substrings in the text, reducing the need for individual character comparisons in certain cases.
+
+## How Rabin-Karp Algorithm Works
+
+1. **Hashing**: Compute the hash value of the pattern and hash values of substrings in the text.
+
+2. **Matching**: Compare the hash values of the pattern with the hash values of the text substrings.
+
+3. **Character Comparison**: If the hash values match, perform a character-by-character comparison to avoid false positives.
+
+## Key Features
+
+- **Hashing**: It utilizes hashing techniques to compare strings efficiently, reducing the need for extensive character comparisons.
+
+- **Sliding Window**: The algorithm utilizes a sliding window approach, computing the hash values as it slides along the text.
+
+## Efficiency
+
+- **Time Complexity**: The average time complexity of the Rabin-Karp Algorithm is O(n+m), where n is the length of the text and m is the length of the pattern. However, worst-case complexity might reach O(n*m).
+
+- **Space Complexity**: The space complexity is O(1), making it more memory-efficient.
+
+## Applications
+
+- **String Matching**: Used in various applications requiring string pattern matching within larger texts.
+
+## Advantages
+
+- **Hashing Technique**: Utilizes hash values for pattern matching, which speeds up the search process.
+
+- **Sliding Window**: Employs a sliding window approach, reducing the number of comparisons.
+
+## Disadvantages
+
+- **Worst-Case Complexity**: The algorithm might perform poorly in certain cases, resulting in high time complexity.
 
 
-## Code
-```js filename="Searching-Algo/ss.js"
-function rabinKarp(text, pattern) {
-  const prime = 101; // A prime number for hashing (can be any prime)
+# Rabin-Karp Algorithm Code Explanation
 
-  // Calculate hash for a string
-  function calculateHash(str) {
-    let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-      hash = (hash * prime + str.charCodeAt(i)) % prime;
-    }
-    return hash;
-  }
+Here's an example of the Rabin-Karp Algorithm implemented in JavaScript:
 
-  const textLength = text.length;
-  const patternLength = pattern.length;
-  const patternHash = calculateHash(pattern);
-  let textHash = calculateHash(text.substring(0, patternLength));
+```javascript filename="Sorting-Algo/rbnk.js"
+function searchRabinKarp(text, pattern) {
+    const textLength = text.length;
+    const patternLength = pattern.length;
+    const prime = 101; // Prime number for hashing
 
-  for (let i = 0; i <= textLength - patternLength; i++) {
-    if (textHash === patternHash) {
-      // Check character by character if the substring matches
-      let match = true;
-      for (let j = 0; j < patternLength; j++) {
-        if (text.charAt(i + j) !== pattern.charAt(j)) {
-          match = false;
-          break;
+    // Hash function to generate the hash value
+    function hash(str, length) {
+        let hashVal = 0;
+        for (let i = 0; i < length; i++) {
+            hashVal += str.charCodeAt(i) * Math.pow(prime, i);
         }
-      }
-      if (match) {
-        return i; // Pattern found at index i
-      }
+        return hashVal;
     }
 
-    // Calculate hash for the next substring
-    if (i < textLength - patternLength) {
-      const prevCharHash = text.charCodeAt(i) % prime;
-      const nextCharHash = text.charCodeAt(i + patternLength) % prime;
-      textHash = (textHash - prevCharHash + prime) % prime;
-      textHash = (textHash * prime + nextCharHash) % prime;
+    // Calculate hash values for the text and the pattern
+    const textHash = hash(text, patternLength);
+    const patternHash = hash(pattern, patternLength);
+
+    for (let i = 0; i <= textLength - patternLength; i++) {
+        // Check hash values
+        if (textHash === patternHash) {
+            let match = true;
+            for (let j = 0; j < patternLength; j++) {
+                if (text[i + j] !== pattern[j]) {
+                    match = false;
+                    break;
+                }
+            }
+            if (match) {
+                console.log("Pattern found at index", i);
+            }
+        }
+
+        // Recalculate the hash for the next substring
+        if (i < textLength - patternLength) {
+            textHash = (textHash - text.charCodeAt(i) + text.charCodeAt(i + patternLength)) * prime;
+        }
     }
-  }
-
-  return -1; // Pattern not found in the text
 }
 
-// Example usage:
-const text = "ABABDABACDABABCABAB";
-const pattern = "ABABCABAB";
-const result = rabinKarp(text, pattern);
-
-if (result !== -1) {
-  console.log(`Pattern found at index ${result}`);
-} else {
-  console.log("Pattern not found in the text");
-}
-
+// Example usage
+const text = "AABAACAADAABAABA";
+const pattern = "AABA";
+searchRabinKarp(text, pattern);
 ```
-
-## Output
-```
-Pattern found at index 10
-```
-
-## How Rabin-Karp Works
-
-1. **Hashing**:
-   - The core idea behind Rabin-Karp is to hash the pattern and substrings of the text to compare them quickly. A hash function is used to convert a string (or a portion of a string) into a numeric value.
-
-2. **Preprocessing**:
-   - Calculate the hash value of the pattern.
-   - Calculate the hash value of the first substring of the text (equal in length to the pattern).
-
-3. **Sliding Window**:
-   - Move a fixed-size "window" (substring) through the text, one character at a time, from left to right.
-
-4. **Hash Comparison**:
-   - At each position of the window, compare the hash value of the substring within the window to the hash value of the pattern.
-   - If the hash values match, perform a character-by-character comparison to confirm that it's not a hash collision.
-   - If the character-by-character comparison also matches, a pattern occurrence is found.
-
-5. **Rolling Hash**:
-   - As you slide the window, you can update the hash value for the new substring efficiently without recomputing it from scratch. This is called a "rolling hash."
-
-6. **Handling Hash Collisions**:
-   - Since hash values can collide (two different substrings having the same hash), the algorithm must verify potential matches character by character to avoid false positives.
-
-7. **Finding Multiple Occurrences**:
-   - Continue sliding the window through the text until you reach the end.
-   - Whenever you find a match, record the position/index where the pattern occurs.
-
-8. **Efficiency**:
-   - The efficiency of Rabin-Karp comes from its ability to compare substrings in O(1) time (due to hash values) and its ability to skip large portions of the text based on the hash values.
-   - The overall time complexity of Rabin-Karp is O(N+M) on average, where N is the length of the text, and M is the length of the pattern.
-
-9. **Multiple Patterns**:
-   - Rabin-Karp can also be extended to search for multiple patterns efficiently in a single pass through the text.
-
-10. **Hash Function Choice**:
-    - The choice of a good hash function is crucial to minimize hash collisions and improve the algorithm's performance.
-
-11. **Limitations**:
-    - Rabin-Karp is most effective when the hash function used produces few collisions. In some cases, a collision-prone hash function can lead to suboptimal performance.
-    - False positives can occur if a hash collision is not handled correctly.
-
-Overall, Rabin-Karp is a versatile and efficient string searching algorithm that is widely used in practice, especially when you need to search for a pattern in a large text or a stream of data. It combines hashing with a sliding window technique to quickly identify potential matches and then verifies them to ensure accuracy.
-
-
-
-These steps show how selection sort repeatedly finds the minimum element in the unsorted part of the array and moves it to its correct position in the sorted part until the entire array is sorted in ascending order.
