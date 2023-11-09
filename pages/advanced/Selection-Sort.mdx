@@ -1,47 +1,82 @@
-# Selection Sort
+---
+title: Selection Sort Algorithm
+---
 
-**Selection sort is a simple and efficient sorting algorithm that works by repeatedly selecting the smallest (or largest) element from the unsorted portion of the list and moving it to the sorted portion of the list.**
+# Selection Sort Algorithm
 
-## Algorithm
-The algorithm repeatedly selects the smallest (or largest) element from the unsorted portion of the list and swaps it with the first element of the unsorted part. This process is repeated for the remaining unsorted portion until the entire list is sorted. 
+Selection Sort is a simple and intuitive comparison-based sorting algorithm. It divides the input list into two parts: the sorted subarray and the unsorted subarray. The algorithm selects the smallest (or largest) element from the unsorted subarray and swaps it with the leftmost unsorted element.
 
-## Code
-```js filename="Searching-Algo/ss.js"
+## How Selection Sort Works
+
+1. **Two Subarrays**:
+   - The array is divided into two subarrays: sorted and unsorted.
+
+2. **Selection and Swap**:
+   - In each iteration, the smallest (or largest) element is selected from the unsorted subarray and swapped with the leftmost unsorted element.
+
+3. **Expansion of Sorted Subarray**:
+   - The sorted subarray expands, and the unsorted subarray contracts in each iteration.
+
+4. **Repeat Until Sorted**:
+   - Continue this process until the entire array is sorted.
+
+## Key Features
+
+- **Simple Implementation**: Selection Sort is easy to understand and implement.
+- **In-Place Sorting**: It sorts the elements within the original array without requiring additional memory.
+
+## Efficiency
+
+- **Time Complexity**: The time complexity of Selection Sort is O(n^2) for average and worst-case scenarios.
+
+- **Space Complexity**: Selection Sort has a space complexity of O(1) as it sorts elements in place.
+
+## Advantages 
+
+Selection Sort has several advantages, including:
+
+- **Simple Implementation**: It is straightforward to implement and understand.
+- **In-Place Sorting**: It sorts elements within the original array without requiring additional memory.
+- **Memory Efficient**: Requires very little additional memory space for processing.
+
+## Disadvantages 
+
+Selection Sort also has some limitations, such as:
+
+- **Quadratic Time Complexity**: Has a time complexity of O(n^2), making it inefficient for larger datasets.
+- **Not Suitable for Large Lists**: Performs poorly on larger, unsorted arrays.
+
+## Selection Sort Implementation in JavaScript
+
+Here's an example of Selection Sort implemented in JavaScript:
+
+```javascript filename="Sorting-Algo/selection.js"
 function selectionSort(arr) {
-  const length = arr.length;
-
-  for (let i = 0; i < length - 1; i++) {
-    let minIndex = i;
-
-    // Find the index of the minimum element in the unsorted part of the array
-    for (let j = i + 1; j < length; j++) {
-      if (arr[j] < arr[minIndex]) {
-        minIndex = j;
-      }
+    const n = arr.length;
+    for (let i = 0; i < n - 1; i++) {
+        let minIndex = i;
+        for (let j = i + 1; j < n; j++) {
+            if (arr[j] < arr[minIndex]) {
+                minIndex = j;
+            }
+        }
+        if (minIndex !== i) {
+            [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
+        }
     }
-
-    // Swap the minimum element with the first element of the unsorted part
-    if (minIndex !== i) {
-      let temp = arr[i];
-      arr[i] = arr[minIndex];
-      arr[minIndex] = temp;
-    }
-  }
-
-  return arr;
+    return arr;
 }
 
-// Example usage:
-const unsortedArray = [64, 25, 12, 22, 11];
+const unsortedArray = [12, 34, 54, 2, 3];
 const sortedArray = selectionSort(unsortedArray);
-console.log(sortedArray); // Output: [11, 12, 22, 25, 64]
-
+console.log("Sorted Array:", sortedArray);
 ```
 
-## Output
-```
-[11, 12, 22, 25, 64]
-```
+In this JavaScript code:
+
+- The selectionSort function implements the Selection Sort algorithm.
+- It iterates through the array, selects the minimum element, and swaps it with the leftmost unsorted element.
+- The example usage demonstrates how to use the Selection Sort function.
 
 ## Tracing 
 Here are step-by-step instructions for tracing selection sort:

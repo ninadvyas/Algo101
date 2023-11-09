@@ -1,87 +1,76 @@
-# Bubble Sort
+---
+title: Bubble Sort 
+---
 
-Bubble Sort is a simple and intuitive comparison-based sorting algorithm. It repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order. The pass through the list is repeated until no swaps are needed, indicating that the list is sorted. While Bubble Sort is not the most efficient sorting algorithm, it is straightforward to understand and implement.
+# Bubble Sort Algorithm
+
+Bubble Sort is a simple comparison-based sorting algorithm. It repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order.
 
 ## How Bubble Sort Works
 
-1. **Start at the Beginning**:
-   - Begin by comparing the first two elements of the list.
+1. **Bubble Up**:
+   - Compare each pair of adjacent elements in the array.
 
-2. **Comparison and Swap**:
-   - Compare the two adjacent elements.
-   - If they are in the wrong order, swap them.
+2. **Swapping**:
+   - If the elements are in the wrong order, swap them.
 
-3. **Move to the Next Pair**:
-   - Move one position to the right and compare the next pair of elements.
+3. **Iterative Sorting**:
+   - Repeat this process until the largest element "bubbles up" to the end of the array.
 
 4. **Repeat Until Sorted**:
-   - Continue comparing and swapping adjacent elements as you move through the list.
-   - Keep repeating these steps until you make a pass through the list without any swaps.
-
-5. **Completion**:
-   - The list is considered sorted when a pass through the entire list results in no swaps.
-
-
-## Code
-```js filename="Sorting-Algo/bbs.js"
-// Bubble Sort Algorithm
-function bubbleSort(arr) {
-    const n = arr.length;
-    let swapped;
-
-    do {
-        swapped = false;
-
-        for (let i = 0; i < n - 1; i++) {
-            if (arr[i] > arr[i + 1]) {
-                // Swap arr[i] and arr[i + 1]
-                const temp = arr[i];
-                arr[i] = arr[i + 1];
-                arr[i + 1] = temp;
-
-                swapped = true;
-            }
-        }
-    } while (swapped);
-
-    return arr;
-}
-
-// Example Usage
-const unsortedArray = [64, 34, 25, 12, 22, 11, 90];
-const sortedArray = bubbleSort(unsortedArray);
-console.log("Sorted Array:", sortedArray);
-
-```
+   - Continue this process for the remaining unsorted elements until the entire array is sorted.
 
 ## Key Features
 
-- **Simple to Implement**: Bubble Sort is easy to understand and implement, making it a good choice for small lists or educational purposes.
+- **Simple and Intuitive**: Bubble Sort is easy to understand and implement.
 
-- **In-Place Sorting**: It sorts the elements within the original list without using additional memory for temporary storage.
-
-- **Stability**: Bubble Sort is a stable sorting algorithm, meaning it maintains the relative order of equal elements.
+- **In-Place Sorting**: It sorts the elements within the original array without using additional memory.
 
 ## Efficiency
 
-- **Time Complexity**: The worst-case time complexity of Bubble Sort is O(n^2), where n is the number of elements in the list. In the best case (when the list is already sorted), it has a time complexity of O(n).
+- **Time Complexity**: The average and worst-case time complexity of Bubble Sort is O(n^2), where n is the number of elements.
 
-- **Space Complexity**: Bubble Sort has a space complexity of O(1) as it doesn't require additional memory for data storage.
+- **Space Complexity**: Bubble Sort has a space complexity of O(1) as it sorts elements in place.
 
-## Applications
+## Advantages 
 
-- **Educational Purposes**: Bubble Sort is often used to teach sorting algorithms due to its simplicity.
+Bubble Sort has several advantages, including:
 
-- **Small Lists**: It can be practical for sorting small lists or lists that are almost sorted.
+- **Simple Implementation**: Easy to understand and implement.
 
-- **Early Exit**: Bubble Sort can be modified with a flag to exit early if no swaps are made during a pass, which can improve its efficiency for almost sorted lists.
+- **In-Place Sorting**: It does not require additional memory.
 
-## Limitations
+## Disadvantages 
 
-- **Inefficiency**: Bubble Sort is generally inefficient for large lists. It performs poorly in most real-world scenarios compared to more advanced sorting algorithms.
+Bubble Sort also has limitations, such as:
 
-- **Quadratic Time Complexity**: The worst-case time complexity makes it unsuitable for large datasets.
+- **Inefficient for Large Arrays**: Performs poorly with larger datasets.
+- **Quadratic Time Complexity**: Has a time complexity of O(n^2), which makes it unsuitable for larger lists.
 
-- **Not Suitable for Large Data**: It is not recommended for sorting large datasets where efficiency is critical.
+## Bubble Sort Implementation in JavaScript
 
-Bubble Sort is a basic sorting algorithm known for its simplicity but is not commonly used in practice for sorting large datasets due to its poor time complexity. It is more suitable for educational purposes and small lists.
+Here's an example of Bubble Sort implemented in JavaScript:
+
+```javascript filename="Sorting-Algo/bubble.js"
+function bubbleSort(arr) {
+    const n = arr.length;
+    for (let i = 0; i < n - 1; i++) {
+        for (let j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                // Swap if the current element is greater than the next element
+                [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+            }
+        }
+    }
+    return arr;
+}
+
+const unsortedArray = [12, 34, 54, 2, 3];
+const sortedArray = bubbleSort(unsortedArray);
+console.log("Sorted Array:", sortedArray);
+```
+In this JavaScript code:
+
+- The `bubbleSort` function implements the Bubble Sort algorithm.
+- It sorts an input array by comparing elements and swapping them.
+- The example usage demonstrates how to use the Bubble Sort function.

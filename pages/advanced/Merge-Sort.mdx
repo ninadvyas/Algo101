@@ -1,91 +1,86 @@
-# Merge Sort
+---
+title: Merge Sort 
+---
 
-**Merge sort is defined as a sorting algorithm that works by dividing an array into smaller subarrays, sorting each subarray, and then merging the sorted subarrays back together to form the final sorted array.**
- 
+# Merge Sort Algorithm
 
-## Code
-```js filename="Sorting-Algo/mg.js"
-function mergeSort(arr) {
-  if (arr.length <= 1) {
-    return arr;
-  }
+Merge Sort is a popular comparison-based sorting algorithm known for its efficiency and stability. It employs a divide-and-conquer strategy to sort an array or list by recursively dividing it into smaller sub-arrays until each sub-array consists of a single element, then merging those sub-arrays to produce a sorted array.
 
-  // Split the array into two halves
-  const middle = Math.floor(arr.length / 2);
-  const leftHalf = arr.slice(0, middle);
-  const rightHalf = arr.slice(middle);
+## How Merge Sort Works
 
-  // Recursively sort each half
-  const sortedLeft = mergeSort(leftHalf);
-  const sortedRight = mergeSort(rightHalf);
+1. **Divide Phase**:
+   - Divide the unsorted array into smaller sub-arrays until each sub-array has only one element.
 
-  // Merge the sorted halves
-  return merge(sortedLeft, sortedRight);
-}
+2. **Conquer Phase**:
+   - Recursively merge adjacent sub-arrays to produce new sorted sub-arrays until there is only one sorted array remaining.
 
+3. **Merge Phase**:
+   - Repeatedly merge sorted sub-arrays to generate larger, more sorted sub-arrays until the entire array is sorted.
+
+## Key Features
+
+- **Efficient and Stable**: Merge Sort offers a stable sorting mechanism and is efficient, with consistent performance across datasets.
+
+- **Divide-and-Conquer Strategy**: It divides the problem into smaller sub-problems and solves them independently before merging.
+
+## Efficiency
+
+- **Time Complexity**: The time complexity of Merge Sort is O(n log n) for average and worst cases.
+
+- **Space Complexity**: Merge Sort has a space complexity of O(n) because it requires auxiliary space for temporary arrays.
+
+## Advantages
+
+- Offers consistent, optimal performance across different datasets.
+- Preserves stability as equal elements retain their original order.
+- Suitable for sorting linked lists.
+
+## Disadvantages
+
+- Requires additional memory space for merging.
+- Slower for small datasets compared to other sorting algorithms like Insertion Sort or Bubble Sort.
+
+## Merge Sort Implementation in JavaScript
+
+Here's an example of Merge Sort implemented in JavaScript:
+
+```javascript filename="Sorting-Algo/merge.js"
 function merge(left, right) {
-  let result = [];
-  let leftIndex = 0;
-  let rightIndex = 0;
+    let result = [];
+    let leftIndex = 0;
+    let rightIndex = 0;
 
-  // Compare elements from the left and right arrays and merge them in sorted order
-  while (leftIndex < left.length && rightIndex < right.length) {
-    if (left[leftIndex] < right[rightIndex]) {
-      result.push(left[leftIndex]);
-      leftIndex++;
-    } else {
-      result.push(right[rightIndex]);
-      rightIndex++;
+    while (leftIndex < left.length && rightIndex < right.length) {
+        if (left[leftIndex] < right[rightIndex]) {
+            result.push(left[leftIndex]);
+            leftIndex++;
+        } else {
+            result.push(right[rightIndex]);
+            rightIndex++;
+        }
     }
-  }
 
-  // Add any remaining elements from both arrays
-  return result.concat(left.slice(leftIndex), right.slice(rightIndex));
+    return result.concat(left.slice(leftIndex)).concat(right.slice(rightIndex));
 }
 
-// Example usage:
-const unsortedArray = [38, 27, 43, 3, 9, 82, 10];
+function mergeSort(arr) {
+    if (arr.length <= 1) {
+        return arr;
+    }
+
+    const middle = Math.floor(arr.length / 2);
+    const left = arr.slice(0, middle);
+    const right = arr.slice(middle);
+
+    return merge(mergeSort(left), mergeSort(right));
+}
+
+const unsortedArray = [12, 34, 54, 2, 3];
 const sortedArray = mergeSort(unsortedArray);
-console.log(sortedArray); // Output: [3, 9, 10, 27, 38, 43, 82]
-
+console.log("Sorted Array:", sortedArray);
 ```
 
-## Output
-```
-[3, 9, 10, 27, 38, 43, 82]
-```
+In this JavaScript code:
 
-## Tracing 
-Here are step-by-step instructions for tracing merge sort:
-
-**Initial State**: Write down the unsorted array.
-Unsorted: **[38, 27, 43, 3, 9, 82, 10]**
-
-**Step 1 (Splitting the Array):**
-Divide the array into two equal halves: [38, 27, 43] and [3, 9, 82, 10].
-
-**Step 2 (Recursively Sorting Subarrays):**
-Recursively apply merge sort to both halves:
-Left Half: [38, 27, 43]
-Right Half: [3, 9, 82, 10]
-
-**Step 3 (Merging Sorted Subarrays):**
-Merge the sorted left and right halves:
-Left Half (sorted): [27, 38, 43]
-Right Half (sorted): [3, 9, 10, 82]
-Compare elements from both halves and merge them into a single sorted array:
-[27, 38, 43] and [3, 9, 10, 82]
-Compare 27 (left) and 3 (right), choose 3, and move right index.
-Compare 27 (left) and 9 (right), choose 9, and move right index.
-Compare 27 (left) and 10 (right), choose 10, and move right index.
-Compare 27 (left) and 82 (right), choose 27, and move left index.
-Compare 38 (left) and 82 (right), choose 38, and move left index.
-Compare 43 (left) and 82 (right), choose 43, and move left index.
-Merge remaining elements: [82].
-The merged array is [3, 9, 10, 27, 38, 43, 82].
-
-**Final State: All elements are now sorted.
-Sorted Array: [3, 9, 10, 27, 38, 43, 82]**
-
-
-These steps demonstrate how merge sort recursively divides the array into smaller halves, sorts them, and then merges them back together in the correct order, resulting in a fully sorted array.
+- Merge function merges two arrays in sorted order.
+- MergeSort function implements the Merge Sort algorithm using recursion.
