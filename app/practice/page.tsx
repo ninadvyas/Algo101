@@ -4,7 +4,7 @@ import Cardx from '@/components/Cardx';
 
 export default function HomePage() {
   return (
-    <div className="flex items-center justify-center min-h-screen imagebackgroundpractice">
+    <div className="flex items-center justify-center min-h-screen">
         <Cardx />
     </div>
   );
