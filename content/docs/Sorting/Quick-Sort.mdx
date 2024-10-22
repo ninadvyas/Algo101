@@ -1,0 +1,82 @@
+---
+title: Quick Sort 
+---
+
+Quick Sort is a popular sorting algorithm known for its efficiency and widespread use. It follows a divide-and-conquer strategy, selecting a 'pivot' element from an array and partitioning the other elements into two sub-arrays according to whether they are less than or greater than the pivot.
+
+## How Quick Sort Works
+
+1. **Pivot Selection**:
+   - Select a pivot element from the array.
+
+2. **Partitioning**:
+   - Rearrange elements in the array so that all elements less than the pivot are moved to its left and greater elements to its right.
+
+3. **Recursion**:
+   - Recursively apply the above steps to the sub-arrays created on either side of the pivot until the entire array is sorted.
+
+## Key Features
+
+- **Efficiency**: Quick Sort is highly efficient and performs well on average.
+
+- **In-Place Sorting**: It sorts the elements within the original array without requiring additional memory.
+
+## Efficiency
+
+- **Time Complexity**: The average time complexity of Quick Sort is O(n log n), while the worst-case time complexity is O(n^2).
+
+- **Space Complexity**: Quick Sort has a space complexity of O(log n) for the recursive call stack.
+
+## Advantages 
+
+Quick Sort offers several advantages, including:
+
+- **Efficiency**: Performs well on average with optimal time complexity.
+- **In-Place Sorting**: Sorts elements within the original array without requiring additional memory.
+
+## Disadvantages 
+
+Quick Sort has some limitations, such as:
+
+- **Worst-case Time Complexity**: Has a worst-case time complexity of O(n^2) when the array is almost sorted.
+- **Unstable**: By default, Quick Sort is not a stable sorting algorithm.
+
+## Quick Sort Implementation in JavaScript
+
+Here's an example of Quick Sort implemented in JavaScript:
+
+```javascript filename="Sorting-Algo/quick.js"
+function quickSort(arr, left = 0, right = arr.length - 1) {
+    if (left < right) {
+        const pivotIndex = partition(arr, left, right);
+        quickSort(arr, left, pivotIndex - 1);
+        quickSort(arr, pivotIndex + 1, right);
+    }
+    return arr;
+}
+
+function partition(arr, left, right) {
+    const pivot = arr[right];
+    let i = left - 1;
+
+    for (let j = left; j < right; j++) {
+        if (arr[j] <= pivot) {
+            i++;
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+    }
+
+    [arr[i + 1], arr[right]] = [arr[right], arr[i + 1]];
+    return i + 1;
+}
+
+const unsortedArray = [12, 34, 54, 2, 3];
+const sortedArray = quickSort(unsortedArray);
+console.log("Sorted Array:", sortedArray);
+```
+
+In this JavaScript code:
+
+- The quickSort function implements the Quick Sort algorithm using the partitioning method.
+- The partition function is used to rearrange the elements around the pivot.
+- The example usage demonstrates how to sort an array using Quick Sort.
