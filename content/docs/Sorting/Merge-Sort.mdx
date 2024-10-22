@@ -1,0 +1,84 @@
+---
+title: Merge Sort 
+---
+
+Merge Sort is a popular comparison-based sorting algorithm known for its efficiency and stability. It employs a divide-and-conquer strategy to sort an array or list by recursively dividing it into smaller sub-arrays until each sub-array consists of a single element, then merging those sub-arrays to produce a sorted array.
+
+## How Merge Sort Works
+
+1. **Divide Phase**:
+   - Divide the unsorted array into smaller sub-arrays until each sub-array has only one element.
+
+2. **Conquer Phase**:
+   - Recursively merge adjacent sub-arrays to produce new sorted sub-arrays until there is only one sorted array remaining.
+
+3. **Merge Phase**:
+   - Repeatedly merge sorted sub-arrays to generate larger, more sorted sub-arrays until the entire array is sorted.
+
+## Key Features
+
+- **Efficient and Stable**: Merge Sort offers a stable sorting mechanism and is efficient, with consistent performance across datasets.
+
+- **Divide-and-Conquer Strategy**: It divides the problem into smaller sub-problems and solves them independently before merging.
+
+## Efficiency
+
+- **Time Complexity**: The time complexity of Merge Sort is O(n log n) for average and worst cases.
+
+- **Space Complexity**: Merge Sort has a space complexity of O(n) because it requires auxiliary space for temporary arrays.
+
+## Advantages
+
+- Offers consistent, optimal performance across different datasets.
+- Preserves stability as equal elements retain their original order.
+- Suitable for sorting linked lists.
+
+## Disadvantages
+
+- Requires additional memory space for merging.
+- Slower for small datasets compared to other sorting algorithms like Insertion Sort or Bubble Sort.
+
+## Merge Sort Implementation in JavaScript
+
+Here's an example of Merge Sort implemented in JavaScript:
+
+```javascript filename="Sorting-Algo/merge.js"
+function merge(left, right) {
+    let result = [];
+    let leftIndex = 0;
+    let rightIndex = 0;
+
+    while (leftIndex < left.length && rightIndex < right.length) {
+        if (left[leftIndex] < right[rightIndex]) {
+            result.push(left[leftIndex]);
+            leftIndex++;
+        } else {
+            result.push(right[rightIndex]);
+            rightIndex++;
+        }
+    }
+
+    return result.concat(left.slice(leftIndex)).concat(right.slice(rightIndex));
+}
+
+function mergeSort(arr) {
+    if (arr.length <= 1) {
+        return arr;
+    }
+
+    const middle = Math.floor(arr.length / 2);
+    const left = arr.slice(0, middle);
+    const right = arr.slice(middle);
+
+    return merge(mergeSort(left), mergeSort(right));
+}
+
+const unsortedArray = [12, 34, 54, 2, 3];
+const sortedArray = mergeSort(unsortedArray);
+console.log("Sorted Array:", sortedArray);
+```
+
+In this JavaScript code:
+
+- Merge function merges two arrays in sorted order.
+- MergeSort function implements the Merge Sort algorithm using recursion.
