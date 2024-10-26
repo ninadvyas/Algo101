@@ -4,78 +4,127 @@ title: Insertion Sort
 
 Insertion Sort is a simple comparison-based sorting algorithm. It builds the final sorted array one item at a time by continuously taking the next element and inserting it into its correct position within the already sorted part of the array.
 
+> The insertion sort algorithm maintains two subsets (often referred to as subsections or sublists) — a sorted subset, and an unsorted subset.
+
+
+![Complexity](@/public/images/insertioncomp.png)
+
 ## How Insertion Sort Works
 
-1. **Divide the Array**:
-   - Divide the array into two subarrays: sorted and unsorted.
+1. **Divide the Array**: Divide the array into two subarrays: sorted and unsorted.
 
-2. **Iterative Sorting**:
-   - Iterate through the unsorted subarray, taking one element at a time.
+2. **Iterative Sorting**: Iterate through the unsorted subarray, taking one element at a time.
 
-3. **Insertion Process**:
-   - Compare the current element with elements in the sorted subarray.
-   - Shift the greater elements one position up to make space for the current element.
-   - Insert the current element into the correct position in the sorted subarray.
+3. **Insertion Process**: Compare the current element with elements in the sorted subarray. Shift the greater elements one position up to make space for the current element. Insert the current element into the correct position in the sorted subarray.
 
-4. **Repeat Until Sorted**:
-   - Continue this process until the entire array is sorted.
+4. **Repeat Until Sorted**: Continue this process until the entire array is sorted.
 
-## Key Features
+![Complexity](@/public/images/insertstep.webp)
 
-- **Simple Implementation**: Insertion Sort is simple to implement and efficient for small datasets.
+```
+Example:
+Input: N = 5, array[] = {4, -31, 0, 99, 83, 1}
+Output: 4, -31, 0, 99, 83, 1
+Explanation: After sorting we get -31, 0, 1, 4, 83, 99
+```
 
-- **In-Place Sorting**: It sorts the elements within the original array without requiring additional memory.
-
-## Efficiency
-
-- **Time Complexity**: The average and worst-case time complexity of Insertion Sort is O(n^2), where n is the number of elements.
-
-- **Space Complexity**: Insertion Sort has a space complexity of O(1) as it sorts elements in place.
-
-## Advantages of Insertion Sort
-
-Insertion Sort has several advantages, including:
-
-- **Simple Implementation**: It is straightforward to implement and understand.
-- **Efficient for Small Arrays**: Performs well with small datasets or partially sorted lists.
-- **In-Place Sorting**: It sorts elements within the original array without requiring additional memory.
+![Complexity](@/public/images/insertionsort.webp)
 
 
-## Disadvantages of Insertion Sort
+To start, our list will be unsorted. We already know that the first item is going to be moved over to our “sorted” subset, which means that, initially, only the number 4 is sorted.
 
-Insertion Sort also has some limitations, such as:
+To make it a little easier to see, we’ll use a red dividing line in this example to indicate the border between the sorted and unsorted collections.
 
-- **Inefficient for Large Datasets**: It performs poorly with larger, unsorted arrays.
-- **Quadratic Time Complexity**: Has a time complexity of O(n^2), which makes it unsuitable for larger lists.
+Next, we’ll pull out the first unsorted element: -31. We want to add it to our sorted subset, so we’ll need to compare it to all the sorted items (we only have one right now, though!). Since -31 is smaller than 4, we’ll shift 4 into the next spot in the list, and move -31 into the spot that the number 4 was originally in.
 
-## Insertion Sort Implementation in JavaScript
+Our sorted list now contains -31 and 4, in the correct, sorted order, as we would expect. We’ll do the same thing again, for the next unsorted element, 0. We’ll remove it from the sorted list, compare it to each of the sorted values, and move any elements that are larger in size to the right, in order to make room for the new element being added.
 
-Here's an example of Insertion Sort implemented in JavaScript:
+![Complexity](@/public/images/insertde.webp)
 
-```javascript filename="Sorting-Algo/insert.js"
-function insertionSort(arr) {
-    const n = arr.length;
-    for (let i = 1; i < n; i++) {
-        let key = arr[i];
-        let j = i - 1;
+## Pseudocode 
 
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+<Tabs items={["C++", "Java", "Python", "Javascript"]}>
+ 
+```c++ tab="C++"
+void insertionSort(int arr[], int n) {
+    for (int i = 1; i < n; i++) {
+        int key = arr[i];
+        int j = i - 1;        
         while (j >= 0 && arr[j] > key) {
             arr[j + 1] = arr[j];
             j = j - 1;
         }
         arr[j + 1] = key;
     }
-    return arr;
 }
 
-const unsortedArray = [12, 34, 54, 2, 3];
-const sortedArray = insertionSort(unsortedArray);
-console.log("Sorted Array:", sortedArray);
+```
+ 
+```java tab="Java"
+void insertionSort(int[] arr) {
+    int n = arr.length;
+    for (int i = 1; i < n; i++) {
+        int key = arr[i];
+        int j = i - 1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        arr[j + 1] = key;
+    }
+}
+
 ```
 
+```python tab="Python"
+def insertion_sort(arr):
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i - 1
+        while j >= 0 and arr[j] > key:
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[j + 1] = key
 
-In this JavaScript code:
+```
 
-- The \`insertionSort\` function implements the Insertion Sort algorithm.
-- It sorts an input array by comparing elements and rearranging them.
-- The example usage demonstrates how to use the Insertion Sort function.
+```js tab="Javascript"
+function insertionSort(arr) {
+    for (let i = 1; i < arr.length; i++) {
+        let key = arr[i];
+        let j = i - 1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        arr[j + 1] = key;
+    }
+}
+```
+ 
+</Tabs>
+
+
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
+ 
+<Accordions>
+  <Accordion title="Key Features" type='single'>
+  Insertion Sort is simple to implement and efficient for small datasets.
+
+  It sorts the elements within the original array without requiring additional memory.
+  </Accordion>
+</Accordions>
+
+## Advantages 
+
+- **Simple Implementation**: It is straightforward to implement and understand.
+- **Efficient for Small Arrays**: Performs well with small datasets or partially sorted lists.
+- **In-Place Sorting**: It sorts elements within the original array without requiring additional memory.
+
+
+## Disadvantages 
+
+- **Inefficient for Large Datasets**: It performs poorly with larger, unsorted arrays.
+- **Quadratic Time Complexity**: Has a time complexity of O(n^2), which makes it unsuitable for larger lists.

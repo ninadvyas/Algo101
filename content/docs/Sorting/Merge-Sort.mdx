@@ -4,28 +4,120 @@ title: Merge Sort
 
 Merge Sort is a popular comparison-based sorting algorithm known for its efficiency and stability. It employs a divide-and-conquer strategy to sort an array or list by recursively dividing it into smaller sub-arrays until each sub-array consists of a single element, then merging those sub-arrays to produce a sorted array.
 
+> The basic idea behind merge sort is this: it tends to be a lot easier to sort two smaller, sorted lists rather than sorting a single large, unsorted one.
+
+![Complexity](@/public/images/mergecomp.png)
+
 ## How Merge Sort Works
 
-1. **Divide Phase**:
-   - Divide the unsorted array into smaller sub-arrays until each sub-array has only one element.
+1. **Divide Phase**: Divide the unsorted array into smaller sub-arrays until each sub-array has only one element.
 
-2. **Conquer Phase**:
-   - Recursively merge adjacent sub-arrays to produce new sorted sub-arrays until there is only one sorted array remaining.
+2. **Conquer Phase**: Recursively merge adjacent sub-arrays to produce new sorted sub-arrays until there is only one sorted array remaining.
 
-3. **Merge Phase**:
-   - Repeatedly merge sorted sub-arrays to generate larger, more sorted sub-arrays until the entire array is sorted.
+3. **Merge Phase**: Repeatedly merge sorted sub-arrays to generate larger, more sorted sub-arrays until the entire array is sorted.
 
-## Key Features
+![Complexity](@/public/images/mergebasic.webp)
+![Complexity](@/public/images/mergebasic2.webp)
 
-- **Efficient and Stable**: Merge Sort offers a stable sorting mechanism and is efficient, with consistent performance across datasets.
 
-- **Divide-and-Conquer Strategy**: It divides the problem into smaller sub-problems and solves them independently before merging.
+```
+Example:
+Input: N = 5, array[] = {5,1,7,3,2,8,6,4}
+Output: 5,1,7,3,2,8,6,4
+Explanation: After sorting we get 1,2,3,4,5,6,7,8
+```
 
-## Efficiency
+![Complexity](@/public/images/mergeex1.webp)
 
-- **Time Complexity**: The time complexity of Merge Sort is O(n log n) for average and worst cases.
+Okay, now we’re down to the smallest possible subproblem: eight lists, and each has one, sorted item within it. Now, we just need to merge two lists together. We’ll merge each sorted list together with its neighbor. When we merge them, we’ll check the first item in each list, and combine the two lists together so that every element is in the correct, sorted order.
 
-- **Space Complexity**: Merge Sort has a space complexity of O(n) because it requires auxiliary space for temporary arrays.
+Easy-peasy! We got this.
+
+![Complexity](@/public/images/mergeex2.webp)
+
+Great! Once we started merging two lists together, we didn’t have to think too much more when it came to merging those two sorted sublists, did we? We used the same technique to merge lists with four items as we did when we merged lists with only one item.
+
+![Complexity](@/public/images/mergefunc.webp)
+
+A mergeSort function ultimately has two functions inside of it:
+
+1. a merge function, which actually combines two lists together and sorts them in the correct order
+
+2. and a mergeSort function, which will continue to split the input array again and again, recursively, and will also call merge again and again, recursively.
+## Pseudocode 
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+<Tabs items={["C++", "Java", "Python", "Javascript"]}>
+ 
+```c++ tab="C++"
+void insertionSort(int arr[], int n) {
+    for (int i = 1; i < n; i++) {
+        int key = arr[i];
+        int j = i - 1;        
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        arr[j + 1] = key;
+    }
+}
+
+```
+ 
+```java tab="Java"
+void insertionSort(int[] arr) {
+    int n = arr.length;
+    for (int i = 1; i < n; i++) {
+        int key = arr[i];
+        int j = i - 1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        arr[j + 1] = key;
+    }
+}
+
+```
+
+```python tab="Python"
+def insertion_sort(arr):
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i - 1
+        while j >= 0 and arr[j] > key:
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[j + 1] = key
+
+```
+
+```js tab="Javascript"
+function insertionSort(arr) {
+    for (let i = 1; i < arr.length; i++) {
+        let key = arr[i];
+        let j = i - 1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        arr[j + 1] = key;
+    }
+}
+```
+ 
+</Tabs>
+
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
+ 
+<Accordions>
+  <Accordion title="Key Features" type='single'>
+  Merge Sort offers a stable sorting mechanism and is efficient, with consistent performance across datasets.
+
+   It divides the problem into smaller sub-problems and solves them independently before merging.
+  </Accordion>
+</Accordions>
 
 ## Advantages
 
@@ -37,48 +129,3 @@ Merge Sort is a popular comparison-based sorting algorithm known for its efficie
 
 - Requires additional memory space for merging.
 - Slower for small datasets compared to other sorting algorithms like Insertion Sort or Bubble Sort.
-
-## Merge Sort Implementation in JavaScript
-
-Here's an example of Merge Sort implemented in JavaScript:
-
-```javascript filename="Sorting-Algo/merge.js"
-function merge(left, right) {
-    let result = [];
-    let leftIndex = 0;
-    let rightIndex = 0;
-
-    while (leftIndex < left.length && rightIndex < right.length) {
-        if (left[leftIndex] < right[rightIndex]) {
-            result.push(left[leftIndex]);
-            leftIndex++;
-        } else {
-            result.push(right[rightIndex]);
-            rightIndex++;
-        }
-    }
-
-    return result.concat(left.slice(leftIndex)).concat(right.slice(rightIndex));
-}
-
-function mergeSort(arr) {
-    if (arr.length <= 1) {
-        return arr;
-    }
-
-    const middle = Math.floor(arr.length / 2);
-    const left = arr.slice(0, middle);
-    const right = arr.slice(middle);
-
-    return merge(mergeSort(left), mergeSort(right));
-}
-
-const unsortedArray = [12, 34, 54, 2, 3];
-const sortedArray = mergeSort(unsortedArray);
-console.log("Sorted Array:", sortedArray);
-```
-
-In this JavaScript code:
-
-- Merge function merges two arrays in sorted order.
-- MergeSort function implements the Merge Sort algorithm using recursion.

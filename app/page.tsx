@@ -1,6 +1,6 @@
-import Link from 'next/link';
 import Home from '@/components/Home';
 import Cardx from '@/components/Cardx';
+import Faq from '@/components/Faq';
 
 export default function HomePage() {
   return (
@@ -8,6 +8,7 @@ export default function HomePage() {
       <div className="sm:w-10/12 lg:w-7/12 xl:w-5/12 sm:px-8">
         <Home />
         <Cardx />
+        <Faq/>
       </div>
     </div>
   );

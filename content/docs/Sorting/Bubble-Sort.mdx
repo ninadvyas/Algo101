@@ -1,77 +1,139 @@
 ---
 title: Bubble Sort 
 ---
+
 Bubble Sort is a simple comparison-based sorting algorithm. It repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order.
+
+> In general, given a collection of n unsorted elements, it takes (n-1) iterations through the list in order to sort it using the bubble sort algorithm.
+
+![Complexity](@/public/images/bubblesort.png)
 
 ## How Bubble Sort Works
 
-1. **Bubble Up**:
-   - Compare each pair of adjacent elements in the array.
+1. **Start at the Beginning**: Begin by comparing the first two elements of the list.
 
-2. **Swapping**:
-   - If the elements are in the wrong order, swap them.
+2. **Comparison and Swap**: Compare the two adjacent elements. If they are in the wrong order, swap them.
 
-3. **Iterative Sorting**:
-   - Repeat this process until the largest element "bubbles up" to the end of the array.
+3. **Move to the Next Pair**: Move one position to the right and compare the next pair of elements.
 
-4. **Repeat Until Sorted**:
-   - Continue this process for the remaining unsorted elements until the entire array is sorted.
+4. **Repeat Until Sorted**: Continue comparing and swapping adjacent elements as you move through the list. Keep repeating these steps until you make a pass through the list without any swaps.
 
-## Key Features
+5. **Completion**: The list is considered sorted when a pass through the entire list results in no swaps.
 
-**Simple and Intuitive**: 
-- Bubble Sort is easy to understand and implement.
+![Complexity](@/public/images/bubblebasic.webp)
 
-**In-Place Sorting**: 
-- It sorts the elements within the original array without using additional memory.
+```
+Example:
+Input: N = 5, array[] = {9,7,4,1,2}
+Output: 9,7,4,1,2
+Explanation: After sorting we get 1,2,4,7,9
 
-## Efficiency
+```
 
-**Time Complexity**: 
-- The average and worst-case time complexity of Bubble Sort is O(n^2), where n is the number of elements.
+![Complexity](@/public/images/bubbleex.webp)
 
-**Space Complexity**: 
-- Bubble Sort has a space complexity of O(1) as it sorts elements in place.
+We start off comparing the first two elements — 9 and 7—and, since they’re out of order, we swap them.
 
-## Advantages 
+Next, we compare the second and third elements: 9 and 4. The number 9 is definitely bigger than 4, so it should come after. This means we have to swap these two elements as well.
 
-Bubble Sort has several advantages, including:
+The next two elements are 9 and 1. Again, the 9 should come after the 1, and not before, which means we need to swap again. Finally, we’re on the last two elements in this iteration: 9 and 2. The number 2 should definitely come before 9, so we’ll swap these two elements so that they’re in the correct order.
 
-- **Simple Implementation**: Easy to understand and implement.
+Phew! That was just one single iteration of bubble sort. And our list isn’t even sorted yet. We’d need to keep repeating this set of actions again and again until the entire collection of elements was sorted. If this was just a single iteration, there’s one big question on my mind now: how many times would we have to iterate in order to sort the entire collection? Imagine if we had a list of 10 or 20, or 50 unsorted elements — I really don’t want to iterate through each set in order to know how much work it’s going to be!
 
-- **In-Place Sorting**: It does not require additional memory.
+![Complexity](@/public/images/bubble2.webp)
 
-## Disadvantages 
+## Pseudocode 
 
-Bubble Sort also has limitations, such as:
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+ 
+<Tabs items={["C++", "Java", "Python", "Javascript"]}>
+ 
+```c++ tab="C++"
+void bubbleSort(int arr[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        bool swapped = false;
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                swap(arr[j], arr[j + 1]);
+                swapped = true;
+            }
+        }
+        if (!swapped) break; 
+    }
+}
+```
+ 
+```java tab="Java"
+void bubbleSort(int[] arr) {
+    int n = arr.length;
+    for (int i = 0; i < n - 1; i++) {
+        boolean swapped = false;
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+                swapped = true;
+            }
+        }
+        if (!swapped) break; 
+    }
+}
+```
 
-- **Inefficient for Large Arrays**: Performs poorly with larger datasets.
-- **Quadratic Time Complexity**: Has a time complexity of O(n^2), which makes it unsuitable for larger lists.
+```python tab="Python"
+void bubbleSort(int[] arr) {
+    int n = arr.length;
+    for (int i = 0; i < n - 1; i++) {
+        boolean swapped = false;
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+                swapped = true;
+            }
+        }
+        if (!swapped) break; 
+    }
+}
+```
 
-## Bubble Sort Implementation in JavaScript
-
-Here's an example of Bubble Sort implemented in JavaScript:
-
-```javascript filename="Sorting-Algo/bubble.js"
+```js tab="Javascript"
 function bubbleSort(arr) {
     const n = arr.length;
     for (let i = 0; i < n - 1; i++) {
+        let swapped = false;
         for (let j = 0; j < n - i - 1; j++) {
             if (arr[j] > arr[j + 1]) {
-                // Swap if the current element is greater than the next element
                 [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+                swapped = true;
             }
         }
+        if (!swapped) break; 
     }
-    return arr;
 }
 
-const unsortedArray = [12, 34, 54, 2, 3];
-const sortedArray = bubbleSort(unsortedArray);
-console.log("Sorted Array:", sortedArray);
 ```
-In this JavaScript code:
+ 
+</Tabs>
 
-- The `bubbleSort` function implements the Bubble Sort algorithm.
-- It sorts an input array by comparing elements and swapping them.
-- The example usage demonstrates how to use the Bubble Sort function.
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
+ 
+<Accordions>
+  <Accordion title="Key Features" type='single'>
+  **Simple and Intuitive**: Bubble Sort is easy to understand and implement.
+
+  **In-Place Sorting**: It sorts the elements within the original array without using additional memory.
+  </Accordion>
+</Accordions>
+
+## Advantages 
+**Simple Implementation**: Easy to understand and implement.
+
+**In-Place Sorting**: It does not require additional memory.
+
+## Disadvantages 
+**Inefficient for Large Arrays**: Performs poorly with larger datasets.
+
+**Quadratic Time Complexity**: Has a time complexity of O(n^2), which makes it unsuitable for larger lists.

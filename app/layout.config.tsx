@@ -7,18 +7,18 @@ export const baseOptions: HomeLayoutProps = {
   nav: {
     title: 'Algo101',
   },
-  // links: [
-  //   {
-  //     text: 'Documentation',
-  //     url: '/docs',
-  //     active: 'nested-url',
-  //   },
-  //   {
-  //     text: 'Practice QA',
-  //     url: '/practice',
-  //     active: 'nested-url',
-  //   },
-  // ],
+  links: [
+    {
+      text: 'Home',
+      url: '/',
+      // active: 'nested-url',
+    },
+    {
+      text: 'Visualizer',
+      url: '/visualizer',
+      // active: 'nested-url',
+    },
+  ],
 };
 
 // docs layout configuration

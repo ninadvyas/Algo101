@@ -1,8 +1,7 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-import { FileSearch,FileCode2,ArrowUpRight } from 'lucide-react';
-
+import { FileSearch,Box,ArrowUpRight } from 'lucide-react';
 
 const QuestionsCard = () => {
  
@@ -26,12 +25,12 @@ const QuestionsCard = () => {
         </div>
 
         <div className="group bg-white rounded-2xl h-28 flex-1 hover:scale-[1.015]  transition-all cursor-pointer">
-          <Link href={"/practice"} className="flex-1">
+          <Link href={"/visualizer"} className="flex-1">
             <div className="p-4 h-full flex flex-col justify-between">
               <div className="flex gap-2 items-start ">
-                <FileCode2 className="text-3xl" />
+                <Box className="text-3xl" />
                 <p className="text-sm font-medium leading-4">
-                  <span>Practice</span> <br></br> Questions
+                  <span>Algorithms</span> <br></br> Visualizer
                 </p>
               </div>
               <div className="flex gap-2 justify-end">
